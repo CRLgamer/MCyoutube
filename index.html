@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCyoutube</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-image: url('path/to/your/image.jpg'); /* Replace with your image path */
+        background-size: cover;
+        background-position: center;
+      }
+      .url-bar {
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.7); /* Black transparent background */
+        border-bottom: 2px solid #ccc;
+        box-sizing: border-box; /* Ensure padding is included in width */
+        position: absolute; /* Centering */
+        top: 50%; /* Centering */
+        transform: translateY(-50%); /* Centering */
+      }
+      .url-bar input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        background: transparent; /* Transparent input background */
+        color: white; /* Text color */
+      }
+      .video-container {
+        width: 100%;
+        height: 100%;
+        position: relative; /* Ensure iframe positioning */
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+    <script>
+      function loadVideo(event) {
+        event.preventDefault();
+        let url = document.getElementById("video-url").value;
+        let videoId = url.match(
+          /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/
+        );
+        if (videoId && videoId[1]) {
+          document.getElementById(
+            "video-frame"
+          ).src = `https://www.youtube.com/embed/${videoId[1]}?autoplay=1&controls=1`;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <form class="url-bar" onsubmit="loadVideo(event)">
+      <input
+        type="text"
+        id="video-url"
+        placeholder="Enter YouTube URL and press Enter"
+      />
+    </form>
+    <div class="video-container">
+      <iframe id="video-frame" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </body>
+</html>
