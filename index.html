@@ -29,24 +29,24 @@
         max-width: 600px;
         display: flex;
         padding: 10px;
-        background: rgba(0, 0, 0, 0.6); /* Slightly darker transparency */
+        background: rgba(0, 0, 0, 0.7); /* Darker background */
         border-radius: 10px;
         position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
+        top: 10%; /* Placed higher to avoid overlapping */
+        left: 50%;
+        transform: translateX(-50%);
       }
       .url-bar input {
         flex: 1;
         padding: 10px;
-        border: none;
-        outline: none;
         font-size: 16px;
-        background: rgba(0, 0, 0, 0.8); /* Solid black input box */
-        color: white;
+        background: rgba(255, 255, 255, 0.9); /* Light background */
+        color: black;
         border-radius: 5px;
+        outline: none;
       }
       .url-bar input::placeholder {
-        color: rgba(255, 255, 255, 0.7);
+        color: black;
       }
       .video-container {
         width: 100%;
@@ -56,30 +56,23 @@
       iframe {
         width: 100%;
         height: 100%;
+        pointer-events: none; /* Prevents iframe from blocking input */
       }
     </style>
     <script>
       function loadVideo(event) {
         event.preventDefault();
         let url = document.getElementById("video-url").value;
-        let videoId = url.match(
-          /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/
-        );
+        let videoId = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
         if (videoId && videoId[1]) {
-          document.getElementById(
-            "video-frame"
-          ).src = `https://www.youtube.com/embed/${videoId[1]}?autoplay=1&controls=1`;
+          document.getElementById("video-frame").src = `https://www.youtube.com/embed/${videoId[1]}?autoplay=1&controls=1`;
         }
       }
     </script>
   </head>
   <body>
     <form class="url-bar" onsubmit="loadVideo(event)">
-      <input
-        type="text"
-        id="video-url"
-        placeholder="Enter YouTube URL and press Enter"
-      />
+      <input type="text" id="video-url" placeholder="Enter YouTube URL and press Enter" />
     </form>
     <div class="video-container">
       <iframe id="video-frame" src="" frameborder="0" allowfullscreen></iframe>
